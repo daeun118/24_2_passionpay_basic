@@ -1,0 +1,50 @@
+import numpy as np
+import matplotlib.pyplot as plt
+def sigmoid(x):
+    return 1 / (1 + np.exp(-x))
+x = np.arange(-5, 5, 0.1)
+y = sigmoid(x)
+plt.plot(x, y)
+plt.show()
+
+import numpy as np
+import matplotlib.pyplot as plt
+def logloss(h, y):
+    if y == 1:
+        return -np.log(h)
+    else:
+        return -np.log(1 - h)
+h = np.arange(0.0001, 1, 0.00001)
+plt.plot(h, logloss(h, 1))
+plt.show()
+plt.plot(h, logloss(h, 0))
+plt.show()
+
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+
+import pandas as pd
+iris_data = load_iris()
+print(iris_data.DESCR)
+X = pd.DataFrame(iris_data.data, columns=iris_data.feature_names)
+X
+y = pd.DataFrame(iris_data.target, columns=['class'])
+y
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=5)
+y_train = y_train.values.ravel()
+model = LogisticRegression(solver='saga', max_iter=2000)
+model.fit(X_train, y_train)
+model.predict(X_test)
+model.score(X_test, y_test)
+
+from sklearn import datasets
+iris = datasets.load_iris()
+list(iris.keys())
+X = iris['data'][:, (2, 3)]  # 꽃잎 길이, 꽃잎 너비
+y = iris['target']
+from sklearn.linear_model import LogisticRegression
+softmax_reg = LogisticRegression(multi_class='multinomial', solver='lbfgs', C=10)
+softmax_reg.fit(X, y)
+softmax_reg.predict([[5, 2]])
+softmax_reg.predict_proba([[5, 2]])
