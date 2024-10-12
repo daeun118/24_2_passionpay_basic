@@ -1,0 +1,29 @@
+pip install pandas
+pip install scikit-learn
+
+from sklearn.datasets import load_iris # 붓꽃 데이터 생성 라이브러리
+from sklearn.model_selection import train_test_split # 데이터셋을 학습, 테스트, 예측 데이터로 분리하는 라이브러리
+from sklearn.tree import DecisionTreeClassifier # 트리기반 ML 알고리즘(의사결정나무)을 불러오는 라이브러리
+from sklearn.metrics import accuracy_score # 정확도 평가 라이브러리
+import pandas as pd # pandas 라이브러리
+
+iris = load_iris() 
+X = iris.data # 피처 데이터
+y = iris.target # 레이블 데이터
+
+print("피처 데이터",X)
+print("레이블 데이터",y)
+
+print("X_train: ",X_train.shape)
+print("X_test: ",X_test.shape)
+print("y_train: ",y_train.shape)
+print("y_test: ",y_test.shape)
+
+model = DecisionTreeClassifier()
+model.fit(X_train, y_train)
+
+y_pred = model.predict(X_test)
+y_pred
+
+accuracy = accuracy_score(y_test, y_pred)
+print("Accuracy:", accuracy)
